@@ -1,15 +1,13 @@
 #!/usr/bin/python3
 #By 康康
-import datetime
 import json
-from datetime import date
 import datetime
 import openpyxl
 from prettytable import PrettyTable, RANDOM
 import requests
 
 date = datetime.datetime(2019, 9, 8)  # 将此处日期修改为学期开始日期即可，一般为周日
-
+n = 1
 
 class JWXT:
 	def __init__(self, acount, pwd):
@@ -61,6 +59,7 @@ class JWXT:
 
 	def create_ics(self, f):
 		global date
+		global n
 		for week in range(1, 20):
 			courses = json.loads(self.getKbcxAzc(week))
 			for index, course in enumerate(courses):
@@ -74,8 +73,9 @@ DTSTART;TZID="UTC+08:00";VALUE=DATE-TIME:%sT%s
 DTEND;TZID="UTC+08:00";VALUE=DATE-TIME:%sT%s
 LOCATION:%s--%s
 END:VEVENT\n''' % (
-					str(index + 1) + course['kcmc'], day, hour[0], day, hour[1], course['jsmc'], course['jsxm'])
+					str(n) + course['kcmc'], day, hour[0], day, hour[1], course['jsmc'], course['jsxm'])
 				f.write(message)
+			n += 1
 			date += datetime.timedelta(days = 7)
 			print(date)
 
