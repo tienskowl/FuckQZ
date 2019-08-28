@@ -79,10 +79,10 @@ END:VEVENT\n''' % (
 			date += datetime.timedelta(days = 7)
 			print(date)
 
-	def getCjcx(self, xh = None):
+	def getCjcx(self):
 		params = {
 			"method": "getCjcx",
-			"xh": self.number if not xh else xh,
+			"xh": self.number,
 			"xnxqid": ""
 		}
 		req = requests.get(self.url, params = params, headers = self.header)
@@ -97,7 +97,7 @@ END:VEVENT\n''' % (
 			table.add_row(
 				[i, score['xqmc'], score['kcmc'], score['zcj'], score['xf'], score['kclbmc'], score['ksxzmc']])
 		print(table)
-		filename = 'cj' + self.number if not xh else xh + '.xlsx'
+		filename = 'cj' + self.number + '.xlsx'
 		excel.save(filename)
 
 
