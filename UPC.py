@@ -1,13 +1,11 @@
 #!/usr/bin/python3
-#By 康康
+# By 康康
 import json
 import datetime
 import openpyxl
 from prettytable import PrettyTable, RANDOM
 import requests
 
-date = datetime.datetime(2019, 9, 8)  # 将此处日期修改为学期开始日期即可，一般为周日
-n = 1
 
 class JWXT:
 	def __init__(self, acount, pwd):
@@ -40,7 +38,6 @@ class JWXT:
 		return session
 
 	def getKbcxAzc(self, zc):
-		# s = json.loads(getCurrentTime())
 		params = {
 			"method": "getKbcxAzc",
 			# "xnxqid": s['xnxqh'], 选择学期，默认为当前学期
@@ -103,12 +100,15 @@ END:VEVENT\n''' % (
 
 number = input('请输入学号')
 pwd = input('请输入教务系统密码')
-print('学期开始时间' + date.strftime('%Y%m%d'))
 jw = JWXT(number, pwd)
 print('token有过期机制，过期请重新打开程序')
 option = input('选择操作：\n 1.生成课表 \n 2.查询成绩')
 if option == '1':
-	f = open('kb1.ics', 'w', encoding = 'utf-8')
+	dat = input('请输入学期开始时间，2019-2020-1开始时间为2019 9 8')  # 获取学期第一天
+	n = 1  # 周数计数
+	tmp = dat.split(' ')
+	date = datetime.datetime(int(tmp[0]), int(tmp[1]), int(tmp[2]))
+	f = open('kb' + number + '.ics', 'w', encoding = 'utf-8')
 	f.write(u"BEGIN:VCALENDAR\nVERSION:2.0\n")
 	jw.create_ics(f)
 	f.write(u"END:VCALENDAR")
