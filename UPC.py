@@ -22,9 +22,6 @@ class JWXT:
 		self.ss = self.login()
 
 	def login(self):
-		# http: // jwxt.xxxx.edu.cn / app.do?method = authUser & xh = {$学号} & pwd = {$密码}
-		# cong = requests.get(url).content
-		# print(cong)
 		params = {
 			"method": "authUser",
 			"xh": self.number,
