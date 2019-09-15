@@ -2,6 +2,8 @@
 # By 康康
 import json
 import datetime
+import os
+
 import openpyxl
 from prettytable import PrettyTable, RANDOM
 import requests
@@ -82,7 +84,7 @@ END:VEVENT\n''' % (
 		req = requests.get(self.url, params = params, headers = self.header)
 		scores = json.loads(req.text)
 		table = PrettyTable(["序号", "日期", "名称", "成绩", "学分", "类型", "考试性质"])
-		# 创建excel表格
+		# 创建excel表
 		excel = openpyxl.Workbook()
 		sheet = excel.active
 		sheet.append(["序号", "日期", "名称", "成绩", "学分", "类型", "考试性质"])
@@ -93,6 +95,7 @@ END:VEVENT\n''' % (
 		print(table)
 		filename = 'cj' + self.number + '.xlsx'
 		excel.save(filename)
+		os.system("pause")
 
 
 number = input('请输入学号')
