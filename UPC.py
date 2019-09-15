@@ -20,7 +20,7 @@ class JWXT:
 		self.number = acount
 		self.pwd = pwd
 		self.ss = self.login()
-
+	
 	def login(self):
 		# http: // jwxt.xxxx.edu.cn / app.do?method = authUser & xh = {$学号} & pwd = {$密码}
 		# cong = requests.get(url).content
@@ -36,7 +36,7 @@ class JWXT:
 		print(s['msg'])
 		self.header['token'] = s['token']
 		return session
-
+	
 	def getKbcxAzc(self, zc):
 		params = {
 			"method": "getKbcxAzc",
@@ -47,13 +47,13 @@ class JWXT:
 		req = self.ss.get(self.url, params = params, headers = self.header)
 		# print(req.text)
 		return req.text
-
+	
 	def timeTrans(self, time):
-		index = int((int(time[2]) - 1) / 2)
+		index = int((int(time[2] + int(time[1]) * 10) - 1) / 2)
 		icstime = [['080000', '095000'], ['101000', '120000'], ['140000', '155000'], ['161000', '180000'],
-		           ['190000', '205000']]
+		           ['190000', '205000'], ['210000', '225000']]
 		return icstime[index]
-
+	
 	def create_ics(self, f):
 		global date
 		global n
@@ -75,7 +75,7 @@ END:VEVENT\n''' % (
 			n += 1
 			date += datetime.timedelta(days = 7)
 			print(date)
-
+	
 	def getCjcx(self):
 		params = {
 			"method": "getCjcx",
