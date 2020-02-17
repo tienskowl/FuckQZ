@@ -48,7 +48,7 @@ class JWXT:
 		return req.text
 	
 	def timeTrans(self, time):
-		index = int((int(time[2] + int(time[1]) * 10) - 1) / 2)
+		index = int((int(int(time[2]) + int(time[1]) * 10) - 1) / 2)
 		icstime = [['080000', '095000'], ['101000', '120000'], ['140000', '155000'], ['161000', '180000'],
 		           ['190000', '205000'], ['210000', '225000']]
 		return icstime[index]
